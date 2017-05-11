@@ -22,7 +22,7 @@ pause
 %% Nonlinear model simulation - no disturbance
 fprintf('Running the FIRST NL model simulation...\n')
 
-sim('simulation1.mdl') 
+%sim('simulation1.mdl') 
 
 pause
 
