@@ -4,19 +4,19 @@
 ##---------------------------------------------------
 
 # Windows default autosave extension
-*.asv
+**/*.asv
 
 # OSX / *nix default autosave extension
-*.m~
+**/*.m~
 
 # Compiled MEX binaries (all platforms)
-*.mex*
+**/*.mex*
 
 # Simulink Code Generation
-slprj/
+**/slprj/
 
 # Session info
-octave-workspace
+**/octave-workspace
 
 # Simulink autosave extension
-.autosave
+**/*.autosave
