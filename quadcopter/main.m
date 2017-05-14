@@ -7,7 +7,7 @@ load('quadData.mat')
 outerController = getOuterController(Ac, 'cplex');
 disp('Data successfully loaded')
 
-
+disp('test');
 %% %%%%%%%%%%%%%% First MPC controller %%%%%%%%%%%%%%%%%%%
 T = 5; % simulation time [s]
 x0 = [ -1 10 -10 120 0 0 0 ];
