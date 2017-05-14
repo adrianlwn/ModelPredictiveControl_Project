@@ -1,6 +1,4 @@
-function [ output_args ] = first_controller( sys,T,x0 , N )
-options = sdpsettings('solver','qpip');
-
+function [  ] = first_controller( sys,T,x0 , N )
 %%% Cost x and u : 
 Q = diag([1 1 1 1 1 1 1]);
 R = diag([1 1 1 1]);
@@ -30,18 +28,17 @@ u = sdpvar(4,N,'full');
 con = [];
 obj = 0;
 for i = 1:N-1
-    con = [con, (x(:,i+1) == A*x(:,i) + B*u(:,i))]; % System dynamics
-    con = [con, (F*x(:,i) <= f)]; % State constraints
-    con = [con, (J*u(:,i) <= j)]; % Input constraints
+    con = [con, (x(:,i+1) == sys.A*x(:,i) + sys.B*u(:,i))]; % System dynamics
+    con = [con, (x(:,i) <= sys.x.max),(x(:,i) >= sys.x.min) ]; % State constraints
+    con = [con, (u(:,i) <= sys.u.max), (u(:,i) >= sys.u.min)]; % Input constraints
     obj = obj + x(:,i)'*Q*x(:,i) + u(:,i)'*R*u(:,i); % Cost function
 end
-con = [con, (Om(end).A*x(:,N) <= Om(end).b)]; % Terminal constraint
-obj = obj + x(:,N)'*P*x(:,N); % Terminal weight
+con = [con, (Af*x(:,N) <= bf)]; % Terminal constraint
+obj = obj + x(:,N)'*Qf*x(:,N); % Terminal weight
 
 
-
-
-innerController = optimizer(constraint, objective, options, x(:,1), u(:,1));
+options = sdpsettings('solver','quadprog');
+innerController = optimizer(con, obj, options, x(:,1), u(:,1));
 simQuad( sys, innerController, x0, T);
 end
 
