@@ -7,7 +7,8 @@ R = diag([1 1 1 1]);
 
 %%% Terminal set and Terminal Weight
 
-sys.x.max = [1; deg2rad(10) ; deg2rad(10) ; deg2rad(15) ; deg2rad(15) ; deg2rad(60)];
+sys = LTISystem('A', sys.A, 'B', sys.B, 'Ts', sys.Ts);
+sys.x.max = [1; deg2rad(10) ; deg2rad(10) ; 2*pi ;deg2rad(15) ; deg2rad(15) ; deg2rad(60)];
 sys.x.min = -sys.x.max;
 
 sys.u.max = [1;1;1;1];

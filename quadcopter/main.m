@@ -12,6 +12,7 @@ disp('test');
 T = 5; % simulation time [s]
 x0 = [ -1 10 -10 120 0 0 0 ];
 
+ [ output_args ] = first_controller( sys,T,x0 , N );
 pause
 
 %% Reference tracking - no disturbance, no invariant sets
