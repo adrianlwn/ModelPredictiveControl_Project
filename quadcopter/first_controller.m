@@ -38,9 +38,6 @@ end
 con = [con, (Om(end).A*x(:,N) <= Om(end).b)]; % Terminal constraint
 obj = obj + x(:,N)'*P*x(:,N); % Terminal weight
 
-
-
-
 innerController = optimizer(constraint, objective, options, x(:,1), u(:,1));
 simQuad( sys, innerController, x0, T);
 end
