@@ -121,7 +121,10 @@ sys.angVelMin   = -[15;15;60]*pi/180;
 sys.angVelMax   = [15;15;60]*pi/180;
 
 
-figure(1); clf; grid on; hold on;
+figure;  
+set(gca,'fontsize', 12);
+subplot(2,3,1);
+grid on; hold on;
 plot(t, theta(:,1)*180/pi, t, theta(:,2)*180/pi, 'LineWidth',1.1);
 plot(t, ref(2,:)*180/pi,'--', t, ref(3,:)*180/pi,'--','LineWidth',1.0);
 plot(t,repmat(sys.angleMin(1)*180/pi,Ns)','--','Color','Red','LineWidth',2)
@@ -130,14 +133,14 @@ legend('Roll', 'Pitch', 'Roll ref', 'Pitch ref', ' Constraints');
 ylabel('deg'); xlabel('s')
 
 
-figure(2); clf; grid on; hold on;
+subplot(2,3,2);   grid on; hold on;
 plot(t, theta(:,3)*180/pi,'LineWidth',1.1);
 plot(t,180*ref(4,:)/pi,'--')
 legend('Yaw','Yaw ref');
 ylabel('deg'); xlabel('s')
 
 
-figure(3); clf; grid on; hold on;
+subplot(2,3,3);   grid on; hold on;
 plot(t,repmat(sys.uMin(1),Ns)','--','Color','Red','LineWidth',2)
 plot(t,repmat(sys.uMax(1),Ns)','--','Color','Red','LineWidth',2)
 plot(t, u(:,1), t, u(:,2), t, u(:,3), t, u(:,4),'LineWidth',1.1);
@@ -146,7 +149,7 @@ axis([0,t(end),sys.uMin(1)-0.1,0.1+sys.uMax(1)])
 ylabel('u'); xlabel('s')
 
 
-figure(4); clf; grid on; hold on;
+subplot(2,3,4);   grid on; hold on;
 plot(t, zdot,'LineWidth',1.1);
 plot(t,ref(1,:),'--');
 plot(t,repmat(sys.zVelMin,Ns)','--','Color','Red','LineWidth',2)
@@ -154,7 +157,7 @@ plot(t,repmat(sys.zVelMax,Ns)','--','Color','Red','LineWidth',2)
 legend('zdot', 'zdot ref','Constraints');
 ylabel('m / s'); xlabel('s')
 
-figure(5); clf; grid on; hold on;
+subplot(2,3,5);   grid on; hold on;
 plot(t, omega(:,1)*180/pi, t, omega(:,2)*180/pi,'LineWidth',1.1);
 plot(t,repmat(sys.angVelMin(1)*180/pi,Ns)','--','Color','Red','LineWidth',2)
 plot(t,repmat(sys.angVelMax(1)*180/pi,Ns)','--','Color','Red','LineWidth',2)
@@ -162,7 +165,7 @@ legend('Roll rate', 'Pitch rate', 'Constraints');
 ylabel('deg / s'); xlabel('s')
 
 
-figure(6); clf; grid on; hold on;
+subplot(2,3,6);   grid on; hold on;
 plot(t, omega(:,3)*180/pi,'LineWidth',1.1);
 plot(t,repmat(sys.angVelMin(3)*180/pi,Ns)','--','Color','Red','LineWidth',2)
 plot(t,repmat(sys.angVelMax(3)*180/pi,Ns)','--','Color','Red','LineWidth',2)
@@ -172,31 +175,33 @@ ylabel('deg / s'); xlabel('s')
 
 
 if(~isempty(filter))
-    figure(8); clf; grid on; hold on;
+    figure(2); 
+    subplot(1,3,1)
+      grid on; hold on;
     plot(t, xft(8,1:end-1), 'LineWidth',1.1);
     legend('dz dist'); 
     title('z dot disturbance estimate')
     
-    figure(9); clf; grid on; hold on;
+    subplot(1,3,2);   grid on; hold on;
     plot(t, xft(14,1:end-1), 'LineWidth',1.1);
     legend('dyaw dist'); 
     title('yaw dost disturbance estimate')
     
-    figure(10); clf; grid on; hold on;
+    subplot(1,3,3);   grid on; hold on;
     plot(t,xft(12,1:end-1), t,xft(13,1:end-1), 'LineWidth', 1.1);
     legend('droll dist', 'dpitch dist');
     title('roll dot and pitch dot disturbance estimates')
 end
 
-% figure(7); clf; grid on; hold on;
+% figure(7);   grid on; hold on;
 % plot(t, u1(:,1), t, u1(:,2)*180/pi, t, u1(:,3)*180/pi);
 % legend('vz_{ref}', 'roll_{ref}', 'pitch_{ref}');
 %
-% figure(8); clf; grid on; hold on;
+% figure(8);   grid on; hold on;
 % plot(t, d1(:,1), t, d1(:,2), t, d1(:,3), t, d1(:,4));
 % legend('dz_{dist}', 'droll_{dist}', 'dpitch_{dist}','dyaw_{dist}');
 %
-% figure(9); clf; grid on; hold on;
+% figure(9);   grid on; hold on;
 % plot(t, d2(:,1), t, d2(:,2), t, d2(:,3), t, d2(:,4),t, d2(:,5));
 % legend('x_{dist}', 'vx_{dist}', 'y_{dist}','vy_{dist}','z_{dist}');
 
