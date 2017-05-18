@@ -15,20 +15,14 @@ N = ceil(2/sys.Ts);
 sys = first_controller(sys,T,x0 , N,us );
 %pause
 
-<<<<<<< Updated upstream
  %% Reference tracking - no disturbance, no invariant sets
  fprintf('PART II - reference tracking...\n')
- 
- 
-% pause
-% 
-=======
+
 %% Reference tracking - no disturbance, no invariant sets
 fprintf('PART II - reference tracking...\n')
 
 pause
 
->>>>>>> Stashed changes
 % %% Nonlinear model simulation - no disturbance
 % fprintf('Running the FIRST NL model simulation...\n')
 % 
