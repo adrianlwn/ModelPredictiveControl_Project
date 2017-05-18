@@ -4,12 +4,12 @@ function [ xs_f , us_f ] = steady_state(r,A,B,C,J,j,Rs,Bd,Cd,d_est )
 n_x = size(A,2);
 n_u = size(B,2);
 n_r = size(R);
+n_d = n_x;
 
 if nargin == 7
-    dim_d = 1;
-    Bd = zeros(n_x,dim_d);
-    Cd = zeros(n_r,dim_d);
-    d_est = zeros(1,dim_d);
+    Bd = zeros(n_x,n_d);
+    Cd = zeros(n_r,n_d);
+    d_est = zeros(n_d,1);
 end
 
 % Define optimization variables
