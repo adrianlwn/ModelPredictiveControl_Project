@@ -1,4 +1,4 @@
-function [ innercontroler ] = reference_tracking( sys )
+function [ innerController ] = reference_tracking( sys )
 Qf = sys.LQRPenalty.weight;
 Af = sys.LQRSet.A;
 bf = sys.LQRSet.b;
@@ -39,7 +39,8 @@ if ~(diag.problem == 0)
 end
 u = us_f + value(du(1));
 
-innercontroler = optimizer(cons, obj, options, x(:,1), u(:,1));
+innerController = optimizer(cons, obj, options, x(:,1), u(:,1));
+simQuad( sys, innerController, x0, T);
 
 end
 
