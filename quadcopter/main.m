@@ -13,7 +13,7 @@ x0 = [ -1 deg2rad(10) deg2rad(-10) deg2rad(120) 0 0 0 ]';
 N = ceil(2/sys.Ts);
 
 sys = first_controller(sys,T,x0 , N,us );
-%pause
+pause
 
 %% Reference tracking - no disturbance, no invariant sets
 fprintf('PART II - reference tracking...\n')
