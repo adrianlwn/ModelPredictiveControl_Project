@@ -2,44 +2,51 @@ function [ innerController ] = reference_tracking( sys )
 Qf = sys.LQRPenalty.weight;
 Af = sys.LQRSet.A;
 bf = sys.LQRSet.b;
+Q = sys.x.penalty.H;
+R = sys.u.penalty.H;
 
-% "measure of y" xm : true state
-xm = A*xm(:,i-1)+B*u(i-1);
-y = C*xm(:,i-1)+Cd*d0;
+% sizes :
+n_x = size(A,2);
+n_u = size(B,2);
+n_r = size(R);
+n_d = n_x;
 
-% x and d estimation
-x_est = A*x_est(:,i-1)+B*u(i-1)+L(1:2)*(C*x_est(:,i-1) + Cd*d_est(i-1) - y);
-d_est = d_est(i-1)+L(3)*(C*x_est(:,i-1) + Cd*d_est(i-1) - y);
+Bd = zeros(n_x,n_d);
+Cd = zeros(n_r,n_d);
+d_est = zeros(n_d,1);
 
-% compute steady state
-[xs_f , us_f] = steady_state(r,A,B,C,Bd,Cd,d_est,J,j,Rs);
-
-% define opt variable
+% Define optimization variables
 dx = sdpvar(2,N,'full');
 du = sdpvar(1,N,'full');
+ref = sdvvar(4,1,'full');
+xs = sdpvar(n_x,1,'full');
+us = sdpvar(n_u,1,'full');
 
-dx0 = x_est - xs_f;
+% Define constraints for the
+con = [];
+con = [con, ([eye(n_x) - A , -B ; C , zeros(size(B,1), size(C,2))]*[xs;us] == [Bd*d_est;ref - Cd*d_est])]; % System dynamics
+con = [con, sys.u.min <= us <= sys.u.max ]; % Input constraints
+con = [con, sys.x.min <= xs <= sys.x.max ]; % State constraints
+obj = us'*us; % us'*Rs*us; % Terminal weight
+
 % Define constraints and objective
-con = [dx(:,1) == dx0 ];
-obj = 0;
+con = [con , dx(:,1) ==  x_init - xs ];
+
 for k = 1:N-1
-    con = [con, (dx(:,k+1) == A*dx(:,k) + B*du(:,k))]; % System dynamics
-    %con = [con, (F*dx <= f)]; % State constraints
-    con = [con, (J*du(:,k) <= j - J*us_f)]; % Input constraints
+    con = [con, (dx(:,k+1) == sys.A*dx(:,k) + sys.B*du(:,k))]; % System dynamics
+    con = [con, sys.x.min <= dx(:,k) + xs  <= sys.x.max ]; % State constraints
+    con = [con, sys.u.min <= du(:,k) + us <= sys.u.max ]; % Input constraints
     obj = obj + dx(:,k)'*Q*dx(:,k) + du(:,k)'*R*du(:,k); % Cost function
+    
 end
-con = [con, (Af*dx(:,N) <= bf)]; % Terminal constraint
+con = [con, Af*dx(:,N) <= bf ]; % Terminal constraint
 obj = obj + dx(:,N)'*Qf*dx(:,N); % Terminal weight
 
 % Compile the matrices
-ops = sdpsettings('verbose',0,'solver','quadprog');
-diag = optimize(con, obj,ops);
-if ~(diag.problem == 0)
-    disp('We have a problem')
-end
-u = us_f + value(du(1));
+ops = sdpsettings('verbose',0,'solver','cplex');
 
-innerController = optimizer(cons, obj, options, x(:,1), u(:,1));
+
+innerController = optimizer(cons, obj, options, [x_init; ref ], du(:,1) + us);
 simQuad( sys, innerController, x0, T);
 
 end
