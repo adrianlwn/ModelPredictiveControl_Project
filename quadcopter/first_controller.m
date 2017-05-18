@@ -1,4 +1,4 @@
-function [  ] = first_controller( sys,T,x0 , N, us )
+function [ sys ] = first_controller( sys,T,x0 , N, us )
 %%% Cost x and u :
 close all
 
@@ -44,5 +44,7 @@ options = sdpsettings('solver','quadprog');
 innerController = optimizer(con, obj, options, x(:,1), u(:,1));
 
 simQuad( sys, innerController, x0, T);
+
+
 end
 

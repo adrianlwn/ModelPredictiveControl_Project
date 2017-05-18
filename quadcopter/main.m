@@ -12,15 +12,23 @@ T = 10; % simulation time [s]
 x0 = [ -1 deg2rad(10) deg2rad(-10) deg2rad(120) 0 0 0 ]';
 N = ceil(2/sys.Ts);
 
-first_controller(sys,T,x0 , N,us );
+sys = first_controller(sys,T,x0 , N,us );
 %pause
 
+<<<<<<< Updated upstream
  %% Reference tracking - no disturbance, no invariant sets
  fprintf('PART II - reference tracking...\n')
  
  
 % pause
 % 
+=======
+%% Reference tracking - no disturbance, no invariant sets
+fprintf('PART II - reference tracking...\n')
+
+pause
+
+>>>>>>> Stashed changes
 % %% Nonlinear model simulation - no disturbance
 % fprintf('Running the FIRST NL model simulation...\n')
 % 
