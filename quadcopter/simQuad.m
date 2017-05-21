@@ -123,55 +123,65 @@ sys.angVelMax   = [15;15;60]*pi/180;
 
 
 figure;  
-set(gca,'fontsize', 12);
-subplot(2,3,1);
+subplot(3,2,1);
 grid on; hold on;
+set(gca,'fontsize', 14);
 plot(t, theta(:,1)*180/pi, t, theta(:,2)*180/pi, 'LineWidth',1.1);
 plot(t, ref(2,:)*180/pi,'--', t, ref(3,:)*180/pi,'--','LineWidth',1.0);
 plot(t,repmat(sys.angleMin(1)*180/pi,Ns)','--','Color','Red','LineWidth',2)
 plot(t,repmat(sys.angleMax(1)*180/pi,Ns)','--','Color','Red','LineWidth',2)
 legend('Roll', 'Pitch', 'Roll ref', 'Pitch ref', ' Constraints');
+title('Evolution Of Roll And Pitch With Respect To Their References And Constraints');
 ylabel('deg'); xlabel('s')
 
 
-subplot(2,3,2);   grid on; hold on;
+subplot(3,2,2);   grid on; hold on;
+set(gca,'fontsize', 14);
 plot(t, theta(:,3)*180/pi,'LineWidth',1.1);
 plot(t,180*ref(4,:)/pi,'--')
 legend('Yaw','Yaw ref');
 ylabel('deg'); xlabel('s')
+title('Evolution Of Yaw With Respect Its Reference');
 
 
-subplot(2,3,3);   grid on; hold on;
+subplot(3,2,3);   grid on; hold on;
+set(gca,'fontsize', 14);
 plot(t,repmat(sys.uMin(1),Ns)','--','Color','Red','LineWidth',2)
 plot(t,repmat(sys.uMax(1),Ns)','--','Color','Red','LineWidth',2)
 plot(t, u(:,1), t, u(:,2), t, u(:,3), t, u(:,4),'LineWidth',1.1);
 legend('Constraints', 'rotor speed 1', 'rotor speed 2', 'rotor speed 3', 'rotor speed 4');
 axis([0,t(end),sys.uMin(1)-0.1,0.1+sys.uMax(1)])
 ylabel('u'); xlabel('s')
+title('Evolution Of Rotor Speeds With Respect To The Constraints');
 
-
-subplot(2,3,4);   grid on; hold on;
+subplot(3,2,4);   grid on; hold on;
+set(gca,'fontsize', 14);
 plot(t, zdot,'LineWidth',1.1);
 plot(t,ref(1,:),'--');
 plot(t,repmat(sys.zVelMin,Ns)','--','Color','Red','LineWidth',2)
 plot(t,repmat(sys.zVelMax,Ns)','--','Color','Red','LineWidth',2)
 legend('zdot', 'zdot ref','Constraints');
+title('Evolution Of Vertical Velocity With Respect To The Reference And Constraints');
 ylabel('m / s'); xlabel('s')
 
-subplot(2,3,5);   grid on; hold on;
+subplot(3,2,5);   grid on; hold on;
+set(gca,'fontsize', 14);
 plot(t, omega(:,1)*180/pi, t, omega(:,2)*180/pi,'LineWidth',1.1);
 plot(t,repmat(sys.angVelMin(1)*180/pi,Ns)','--','Color','Red','LineWidth',2)
 plot(t,repmat(sys.angVelMax(1)*180/pi,Ns)','--','Color','Red','LineWidth',2)
 legend('Roll rate', 'Pitch rate', 'Constraints');
 ylabel('deg / s'); xlabel('s')
+title('Evolution Of Roll And Pitch Rates With Respect To The Constraints');
 
 
-subplot(2,3,6);   grid on; hold on;
+subplot(3,2,6);   grid on; hold on;
+set(gca,'fontsize', 14);
 plot(t, omega(:,3)*180/pi,'LineWidth',1.1);
 plot(t,repmat(sys.angVelMin(3)*180/pi,Ns)','--','Color','Red','LineWidth',2)
 plot(t,repmat(sys.angVelMax(3)*180/pi,Ns)','--','Color','Red','LineWidth',2)
 legend('Yaw rate', ' Constraints');
 ylabel('deg / s'); xlabel('s')
+title('Evolution Of Yaw Rate With Respect To The Constraints');
 
 
 
