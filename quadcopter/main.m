@@ -28,39 +28,6 @@ innerController = reference_tracking(sys, N, x0, constant_ref,T);
 
 slow_ref = [sin(n_ref) deg2rad(5*sin(n_ref)) deg2rad(-5*sin(n_ref)) deg2rad(60*sin(n_ref))]';
 innerController = reference_tracking(sys, N, x0, slow_ref,T);
-<<<<<<< HEAD
-pause
-
-%% Nonlinear model simulation - no disturbance
-fprintf('Running the FIRST NL model simulation...\n')
-
-sim('simulation1.mdl') 
-
-pause
-
-%% Disturbance estimation
-%estimator
-% 
-% 
-% %% Offset free MPC
-% fprintf('PART III - OFFSET FREE / Disturbance rejection...\n')
-% 
-% pause
-% %% Final simulation
-% fprintf('Running the FINAL NL model simulation...\n')
-% %sim('simulation2.mdl') 
-% pause
-% %% BONUS - Slew rate constraints
-% % run after doing nonlinear simulations otherwise the NL simulations won't
-% % work (because of the additional controller argument)
-% fprintf('BONUS - SLEW RATE CONSTRAINTS...\n')
-% 
-% 
-% 
-% 
-% 
-% 
-=======
 
 %pause
 

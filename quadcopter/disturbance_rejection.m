@@ -52,11 +52,13 @@ filter.Bf = [B_hat, L];
 dx = sdpvar(n_x,N,'full');
 du = sdpvar(n_u,N,'full');
 ref = sdpvar(n_r,1,'full');
-x_init = sdpvar(n_x,1,'full');
 xs = sdpvar(n_x,1,'full');
 us = sdpvar(n_u,1,'full');
-x_est = sdpvar(n_x,N,'full');
-d_est = sdpvar(n_d,N,'full');
+x_est = sdpvar(n_x,1,'full');
+d_est = sdpvar(n_d,1,'full');
+x_init = sdpvar(n_x,1,'full');
+d_est_init = sdpvar(n_d,1,'full');
+u_init = sdpvar(n_u,1,'full');
 
 %% MPC Delta Tracking
 
@@ -64,18 +66,24 @@ d_est = sdpvar(n_d,N,'full');
 con = [];
 obj = us'*us; % us'*Rs*us; % Terminal weight
 
+% Estimator Constraints
+% "measure of y" xm : true state
+con = [con , u_init == du(:,1) + us ]
+
+% x and d estimation
+con = [con, [x_est ; d_est] == filter.Af * [x_init ; d_est_init] + filter.Bf * [u_init ; x_init]]; ]
+
+
+% Steady State Constraints
+con = [con, ([eye(n_x) - A , -B ; C , zeros( size(C,1), size(B,2))]*[xs;us] == [Bd*d_est;ref - Cd*d_est])]; % System dynamics
+con = [con, sys.u.min <= us <= sys.u.max ]; % Input constraints
+con = [con, sys.x.min <= xs <= sys.x.max ]; % State constraints
+
+con = [con , dx(:,1) ==  x_est - xs ];
 
 for k = 1:N-1
-    % Estimator Constraints
-    
-    
-    % Steady State Constraints
-    con = [con, ([eye(n_x) - A , -B ; C , zeros( size(C,1), size(B,2))]*[xs;us] == [Bd*d_est;ref - Cd*d_est])]; % System dynamics
-    con = [con, sys.u.min <= us <= sys.u.max ]; % Input constraints
-    con = [con, sys.x.min <= xs <= sys.x.max ]; % State constraints
     
     % MPC Delta Formulation Constraints
-    con = [con , dx(:,1) ==  x_init - xs ];
     con = [con, (dx(:,k+1) == sys.A*dx(:,k) + sys.B*du(:,k))]; % System dynamics
     con = [con, sys.x.min <= dx(:,k) + xs  <= sys.x.max ]; % State constraints
     con = [con, sys.u.min <= du(:,k) + us <= sys.u.max ]; % Input constraints
@@ -89,7 +97,7 @@ obj = obj + dx(:,N)'*Qf*dx(:,N); % Terminal weight
 ops = sdpsettings('verbose',1,'solver','quadprog');
 
 
-innerController = optimizer(con, obj, ops, [x_init ; ref], du(:,1) + us);
+innerController = optimizer(con, obj, ops, [x_init ; ref ; d_est_init], du(:,1) + us);
 simQuad( sys, innerController, x0, T , r);
 
 
