@@ -64,6 +64,7 @@ xf = zeros(2*n1,1);
 dest = zeros(n1,1);
 xft = zeros(2*n1,Ns+1);
 for i = 1 : Ns
+    disp(i)
     xt(:,i) = x;
     if(~exist('ref','var'))
         [u err] = ctrl{x};

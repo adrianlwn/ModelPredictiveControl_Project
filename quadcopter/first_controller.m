@@ -8,7 +8,7 @@ R = 0.2*diag([1 1 1 1]);
 %%% Terminal set and Terminal Weight
 
 sys = LTISystem('A', sys.A, 'B', sys.B, 'Ts', sys.Ts);
-sys.x.max = [1; deg2rad(10) ; deg2rad(10) ; 2*pi ;deg2rad(15) ; deg2rad(15) ; deg2rad(60)];
+sys.x.max = [1; deg2rad(10) ; deg2rad(10) ; 50*pi ;deg2rad(15) ; deg2rad(15) ; deg2rad(60)];
 sys.x.min = -sys.x.max;
 
 sys.u.max = [1;1;1;1]-us; 
@@ -26,9 +26,11 @@ bf = sys.LQRSet.b;
 % Define optimization variables
 x = sdpvar(7,N,'full');
 u = sdpvar(4,N,'full');
+
 % Define constraints and objective
 con = [];
 obj = 0;
+
 for i = 1:N-1
     con = [con, (x(:,i+1) == sys.A*x(:,i) + sys.B*u(:,i))]; % System dynamics
     con = [con, (x(:,i) <= sys.x.max),(x(:,i) >= sys.x.min) ]; % State constraints
