@@ -1,4 +1,8 @@
 function [ innerController ] = reference_tracking( sys, N,x0,r, T)
+
+
+%% Initializations
+
 Qf = sys.LQRPenalty.weight;
 Af = sys.LQRSet.A;
 bf = sys.LQRSet.b;
