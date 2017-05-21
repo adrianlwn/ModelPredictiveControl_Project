@@ -13,7 +13,7 @@ x0 = [ -1 deg2rad(10) deg2rad(-10) deg2rad(120) 0 0 0 ]';
 N = ceil(2/sys.Ts);
 
 sys = first_controller(sys,T,x0 , N,us );
-pause
+%pause
 
 %% Reference tracking - no disturbance, no invariant sets
 fprintf('PART II - reference tracking...\n')
@@ -25,17 +25,17 @@ innerController = reference_tracking(sys, N, x0, ref,T);
 
 slow_ref = [0 deg2rad(5) deg2rad(-5) deg2rad(60)]';
 innerController = reference_tracking(sys, N, x0, slow_ref,T);
-%pause
+pause
 
-% %% Nonlinear model simulation - no disturbance
-% fprintf('Running the FIRST NL model simulation...\n')
-% 
-% %sim('simulation1.mdl') 
-% 
-% pause
-% 
-% %% Disturbance estimation
-% %estimator
+%% Nonlinear model simulation - no disturbance
+fprintf('Running the FIRST NL model simulation...\n')
+
+sim('simulation1.mdl') 
+
+pause
+
+%% Disturbance estimation
+%estimator
 % 
 % 
 % %% Offset free MPC
