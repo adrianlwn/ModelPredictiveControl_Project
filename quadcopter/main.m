@@ -17,8 +17,15 @@ pause
 
 %% Reference tracking - no disturbance, no invariant sets
 fprintf('PART II - reference tracking...\n')
-innerController = reference_tracking(sys);
-pause
+T = 10;
+N = ceil(2/sys.Ts);
+
+constant_ref = [0 deg2rad(5) deg2rad(-5) deg2rad(60)]';
+innerController = reference_tracking(sys, N, x0, ref,T);
+
+slow_ref = [0 deg2rad(5) deg2rad(-5) deg2rad(60)]';
+innerController = reference_tracking(sys, N, x0, slow_ref,T);
+%pause
 
 % %% Nonlinear model simulation - no disturbance
 % fprintf('Running the FIRST NL model simulation...\n')
