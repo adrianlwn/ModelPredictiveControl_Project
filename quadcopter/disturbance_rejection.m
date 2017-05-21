@@ -52,6 +52,7 @@ filter.Bf = [B_hat, L];
 dx = sdpvar(n_x,N,'full');
 du = sdpvar(n_u,N,'full');
 ref = sdpvar(n_r,1,'full');
+
 xs = sdpvar(n_x,1,'full');
 us = sdpvar(n_u,1,'full');
 x_est = sdpvar(n_x,1,'full');
@@ -60,11 +61,13 @@ x_init = sdpvar(n_x,1,'full');
 d_est_init = sdpvar(n_d,1,'full');
 u_init = sdpvar(n_u,1,'full');
 
+
 %% MPC Delta Tracking
 
 % Define constraints and objective
 con = [];
 obj = us'*us; % us'*Rs*us; % Terminal weight
+
 
 % Estimator Constraints
 % "measure of y" xm : true state
@@ -84,6 +87,7 @@ con = [con , dx(:,1) ==  x_est - xs ];
 for k = 1:N-1
     
     % MPC Delta Formulation Constraints
+
     con = [con, (dx(:,k+1) == sys.A*dx(:,k) + sys.B*du(:,k))]; % System dynamics
     con = [con, sys.x.min <= dx(:,k) + xs  <= sys.x.max ]; % State constraints
     con = [con, sys.u.min <= du(:,k) + us <= sys.u.max ]; % Input constraints
@@ -97,7 +101,9 @@ obj = obj + dx(:,N)'*Qf*dx(:,N); % Terminal weight
 ops = sdpsettings('verbose',1,'solver','quadprog');
 
 
+
 innerController = optimizer(con, obj, ops, [x_init ; ref ; d_est_init], du(:,1) + us);
+
 simQuad( sys, innerController, x0, T , r);
 
 
