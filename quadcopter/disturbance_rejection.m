@@ -50,7 +50,7 @@ poles_u = [pdz;pda;pdb;pdg;pdad;pdbd;pdgd]';
 
 %F_kalman = [poles_x,poles_u]; %Study what the values do
 F_kalman = linspace(0.99,0.95,14);
-L = -place(A_hat',C_hat',F_kalman)';
+L = place(A_hat',C_hat',F_kalman)';
 
 filter.Af = A_hat-L*C_hat;
 filter.Bf = [B_hat, L];
@@ -101,11 +101,11 @@ for k = 1:N-1
     obj = obj + dx(:,k)'*Q*dx(:,k) + du(:,k)'*R*du(:,k); % Cost function
 end
 % Constraints For Step N
-con = [con, Af*dx(:,N) <= bf ]; % Terminal constraint
-obj = obj + dx(:,N)'*Qf*dx(:,N); % Terminal weight
+%con = [con, Af*dx(:,N) <= bf ]; % Terminal constraint
+%obj = obj + dx(:,N)'*Qf*dx(:,N); % Terminal weight
 
 % Compile the matrices
-ops = sdpsettings('verbose',1,'solver','quadprog');
+ops = sdpsettings('verbose',1,'solver','cplex');
 
 innerController = optimizer(con, obj, ops, [x_init ; ref ; d_est_init], du(:,1) + us);
 simQuad( sys, innerController, x0, T , r, filter,  d);
