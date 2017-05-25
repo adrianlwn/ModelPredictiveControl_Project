@@ -45,6 +45,10 @@ N = ceil(2/sys.Ts);
 %step_ref = 
 [ innerController, filter ] = disturbance_rejection(sys, N, x0, constant_ref, T, []);
 
+n_ref = [sys.Ts:sys.Ts:T]';
+slow_ref = [0.8.*sin(n_ref) deg2rad(5*sin(n_ref)) deg2rad(-5*sin(n_ref)) deg2rad(60*sin(n_ref/2))]';
+simQuad( sys, innerController, x0, T , slow_ref, filter, []);
+
 %% Offset free MPC
 fprintf('PART III - OFFSET FREE / Disturbance rejection...\n')
 
