@@ -24,17 +24,17 @@ N_ref = T/sys.Ts;
 n_ref = [sys.Ts:sys.Ts:T]';
 
 constant_ref = [0 deg2rad(5) deg2rad(-5) deg2rad(60)]';
-innerController = reference_tracking(sys, N, x0, constant_ref,T);
-
-slow_ref = [sin(n_ref) deg2rad(5*sin(n_ref)) deg2rad(-5*sin(n_ref)) deg2rad(60*sin(n_ref))]';
-innerController = reference_tracking(sys, N, x0, slow_ref,T);
+% innerController = reference_tracking(sys, N, x0, constant_ref,T);
+% 
+% slow_ref = [sin(n_ref) deg2rad(5*sin(n_ref)) deg2rad(-5*sin(n_ref)) deg2rad(60*sin(n_ref))]';
+% innerController = reference_tracking(sys, N, x0, slow_ref,T);
 
 %pause
 
 %% Nonlinear model simulation - no disturbance
 fprintf('Running the FIRST NL model simulation...\n')
 
-sim('simulation1.mdl') 
+%sim('simulation1.mdl') 
 
 %pause
 
@@ -55,6 +55,9 @@ fprintf('PART III - OFFSET FREE / Disturbance rejection...\n')
 %pause
 %% Final simulation
 fprintf('Running the FINAL NL model simulation...\n')
+
+
+
 sim('simulation2.mdl') 
 %pause
 %% BONUS - Slew rate constraints
