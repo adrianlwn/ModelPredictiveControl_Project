@@ -55,7 +55,7 @@ fprintf('PART III - OFFSET FREE / Disturbance rejection...\n')
 %pause
 %% Final simulation
 fprintf('Running the FINAL NL model simulation...\n')
-%sim('simulation2.mdl') 
+sim('simulation2.mdl') 
 %pause
 %% BONUS - Slew rate constraints
 % run after doing nonlinear simulations otherwise the NL simulations won't
