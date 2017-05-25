@@ -49,7 +49,7 @@ poles_x = [pz;pa;pb;pg;pad;pbd;pgd]';
 poles_u = [pdz;pda;pdb;pdg;pdad;pdbd;pdgd]';
 
 %F_kalman = [poles_x,poles_u]; %Study what the values do
-F_kalman = linspace(0.99,0.95,14);
+F_kalman = linspace(0.95,0.99,14);
 L = place(A_hat',C_hat',F_kalman)';
 
 filter.Af = A_hat-L*C_hat;

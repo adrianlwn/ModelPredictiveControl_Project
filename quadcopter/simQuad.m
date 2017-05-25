@@ -186,7 +186,7 @@ title('Evolution Of Yaw Rate With Respect To The Constraints');
 
 
 if(~isempty(filter))
-    figure(2); 
+    figure; 
     subplot(1,3,1)
       grid on; hold on;
     plot(t, xft(8,1:end-1), 'LineWidth',1.1);
