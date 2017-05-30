@@ -24,7 +24,7 @@ N_ref = T/sys.Ts;
 n_ref = [sys.Ts:sys.Ts:T]';
 
 constant_ref = [0 deg2rad(5) deg2rad(-5) deg2rad(60)]';
-% innerController = reference_tracking(sys, N, x0, constant_ref,T);
+innerController = reference_tracking(sys, N, x0, constant_ref,T);
 % 
 % slow_ref = [sin(n_ref) deg2rad(5*sin(n_ref)) deg2rad(-5*sin(n_ref)) deg2rad(60*sin(n_ref))]';
 % innerController = reference_tracking(sys, N, x0, slow_ref,T);

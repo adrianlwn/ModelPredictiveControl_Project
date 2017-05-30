@@ -36,7 +36,7 @@ Model {
       UnitExpr		      "inherit"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.219"
+    ComputedModelVersion    "1.225"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -134,9 +134,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "adrian"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu May 25 16:58:39 2017"
-  RTWModifiedTimeStamp	  417632306
-  ModelVersionFormat	  "1.%<AutoIncrement:219>"
+  LastModifiedDate	  "Sat May 27 19:19:59 2017"
+  RTWModifiedTimeStamp	  417813598
+  ModelVersionFormat	  "1.%<AutoIncrement:225>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1503,7 +1503,7 @@ Model {
       Variant		      off
       System {
 	Name			"Reference filter"
-	Location		[137, 56, 1268, 677]
+	Location		[0, 23, 1440, 896]
 	Open			off
 	PortBlocksUseCompactNotation off
 	ModelBrowserVisibility	off
@@ -3009,7 +3009,7 @@ Model {
       Variant		      off
       System {
 	Name			"reference 2"
-	Location		[137, 56, 1268, 677]
+	Location		[0, 23, 1440, 896]
 	Open			off
 	PortBlocksUseCompactNotation off
 	ModelBrowserVisibility	off
@@ -3399,7 +3399,7 @@ Model {
 	  SourceProductName	  "Simulink"
 	  SourceProductBaseCode	  "SL"
 	  ContentPreviewEnabled	  off
-	  slope			  "1/6"
+	  slope			  "1"
 	  start			  "0"
 	  X0			  "0"
 	  VectorParams1D	  on
@@ -3427,27 +3427,12 @@ Model {
 	  SampleTime		  "0"
 	}
 	Block {
-	  BlockType		  ZeroOrderHold
-	  Name			  "Zero-Order\nHold1"
-	  SID			  "237"
-	  Position		  [75, 35, 110, 65]
-	  ZOrder		  -36
-	  SampleTime		  "6"
-	}
-	Block {
 	  BlockType		  Outport
 	  Name			  "ref"
 	  SID			  "238"
 	  Position		  [420, 118, 450, 132]
 	  ZOrder		  -37
 	  IconDisplay		  "Port number"
-	}
-	Line {
-	  ZOrder		  5
-	  SrcBlock		  "Ramp"
-	  SrcPort		  1
-	  DstBlock		  "Zero-Order\nHold1"
-	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  8
@@ -3482,10 +3467,10 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  ZOrder		  22
-	  SrcBlock		  "Zero-Order\nHold1"
+	  ZOrder		  27
+	  SrcBlock		  "Ramp"
 	  SrcPort		  1
-	  Points		  [60, 0]
+	  Points		  [115, 0]
 	  Branch {
 	    ZOrder		    20
 	    Points		    [0, 65]
@@ -4660,7 +4645,7 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function y = fcn(u)\nphi_u = u*5/(2*pi);\ny_phi = @(phi) 3.* sin(phi).*cos(phi)./(1+cos(phi).^2)\n"
+      script		      "function y = fcn(u)\nphi_u = u/(2*pi);\ny_phi = @(phi) 3.* sin(phi).*cos(phi)./(1+cos(phi).^2);\n"
       "\n\ny = y_phi(phi_u);\n"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
@@ -4787,8 +4772,8 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function y = fcn(u)\nphi_u = u*5/(2*pi);\nx_phi = @(phi) 2.* sin(phi)./(1+cos(phi).^2);\n\n\ny = "
-      "x_phi(phi_u);"
+      script		      "function y = fcn(u)\nphi_u = u/(2*pi);\nx_phi = @(phi) 2.* sin(phi)./(1+cos(phi).^2);\n\n\ny = x_"
+      "phi(phi_u);"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
