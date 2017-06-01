@@ -36,7 +36,7 @@ Model {
       UnitExpr		      "inherit"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.225"
+    ComputedModelVersion    "1.226"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -99,8 +99,8 @@ Model {
 	ViewObjType		"SimulinkSubsys"
 	LoadSaveID		"229"
 	Extents			[1402.0, 697.0]
-	ZoomFactor		[0.8]
-	Offset			[-81.672251224517822, -41.104424744844437]
+	ZoomFactor		[1.1938780918028782]
+	Offset			[-210.91424438613535, -86.9107431057727]
       }
       Object {
 	$PropName		"DockComponentsInfo"
@@ -134,9 +134,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "adrian"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sat May 27 19:19:59 2017"
-  RTWModifiedTimeStamp	  417813598
-  ModelVersionFormat	  "1.%<AutoIncrement:225>"
+  LastModifiedDate	  "Thu Jun 01 14:01:38 2017"
+  RTWModifiedTimeStamp	  418226496
+  ModelVersionFormat	  "1.%<AutoIncrement:226>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -3151,7 +3151,7 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"80"
+	ZoomFactor		"119"
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "MATLAB Function"
@@ -3423,7 +3423,7 @@ Model {
 	  ZOrder		  -16
 	  ShowName		  off
 	  Time			  "4"
-	  After			  "0"
+	  After			  "2"
 	  SampleTime		  "0"
 	}
 	Block {
@@ -4616,9 +4616,6 @@ Stateflow {
     screen		    [1 1 3600 1200 1.180555555555556]
     treeNode		    [0 43 0 0]
     viewObj		    42
-    visible		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    5
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -4743,9 +4740,6 @@ Stateflow {
     screen		    [1 1 3600 1200 1.180555555555556]
     treeNode		    [0 50 0 0]
     viewObj		    49
-    visible		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    5
     decomposition	    CLUSTER_CHART
     type		    EML_CHART

@@ -23,11 +23,11 @@ N = ceil(2/sys.Ts);
 N_ref = T/sys.Ts;
 n_ref = [sys.Ts:sys.Ts:T]';
 
-constant_ref = [0 deg2rad(5) deg2rad(-5) deg2rad(60)]';
-innerController = reference_tracking(sys, N, x0, constant_ref,T);
+% constant_ref = [0 deg2rad(5) deg2rad(-5) deg2rad(60)]';
+% innerController = reference_tracking(sys, N, x0, constant_ref,T);
 % 
-% slow_ref = [sin(n_ref) deg2rad(5*sin(n_ref)) deg2rad(-5*sin(n_ref)) deg2rad(60*sin(n_ref))]';
-% innerController = reference_tracking(sys, N, x0, slow_ref,T);
+slow_ref = [sin(n_ref) deg2rad(5*sin(n_ref)) deg2rad(-5*sin(n_ref)) deg2rad(60*sin(n_ref))]';
+innerController = reference_tracking(sys, N, x0, slow_ref,T);
 
 %pause
 
@@ -64,4 +64,6 @@ sim('simulation2.mdl')
 % run after doing nonlinear simulations otherwise the NL simulations won't
 % work (because of the additional controller argument)
 fprintf('BONUS - SLEW RATE CONSTRAINTS...\n')
+
+[ innerController, filter ] = slew_rate_limitation(sys, N, x0, constant_ref, T, []);
 
